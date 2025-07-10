@@ -1,12 +1,16 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
-import path from "path";
+import path from 'path';
 
-export function validateImageFile(req: Request, res: Response, next: NextFunction) {
+export function validateImageFile(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const { filename, width, height } = req.query;
 
   if (!filename || !width || !height)
-    return res.status(400).send("Missing required parameters.");
+    return res.status(400).send('Missing required parameters.');
 
   const parsedWidth = parseInt(width as string, 10);
   const parsedHeight = parseInt(height as string, 10);

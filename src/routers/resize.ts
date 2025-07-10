@@ -1,13 +1,11 @@
 import express, {Request, Response} from "express";
 import { resizeImage } from "../utils/imageProcessor";
+import { validateImageFile } from "../middleware/validateImageFile";
 
 const router = express.Router();
 
-router.get("/resize", async (req: Request, res: Response) => {
+router.get("/resize",[validateImageFile], async (req: Request, res: Response) => {
   const { filename, width, height } = req.query;
-
-  if (!filename || !width || !height)
-    return res.status(400).send("Missing required parameters.");
 
   try {
     const resizedPath = await resizeImage(
